@@ -1,0 +1,23 @@
+@startuml C4_Теплый_Дом_Контекст
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+title Диаграмма контекста приложения "Тёплый дом"
+
+Person(user, "Пользователь", "Пользователь системы управления отоплением")
+Person(technician, "Специалист", "Устанавливает и подключает датчики")
+
+System(smarthome_app, "Приложение Тёплый дом", "Монолитное приложение для мониторинга температуры и управления отоплением")
+
+System_Ext(temperature_sensor, "Датчик температуры", "Измеряет температуру в помещении")
+System_Ext(heating_controller, "Реле отопления", "Управляет работой системы отопления")
+
+Rel(user, smarthome_app, "Просматривает температуру и управляет отоплением через веб-интерфейс")
+Rel(technician, smarthome_app, "Регистрирует устройства в приложении")
+Rel(technician, temperature_sensor, "Устанавливает и подключает")
+Rel(technician, heating_controller, "Устанавливает и подключает")
+
+Rel(smarthome_app, temperature_sensor, "Обновляет данные о температуре", "HTTP/REST")
+Rel(smarthome_app, heating_controller, "Включает/отключает отопление", "HTTP/REST")
+
+@enduml
